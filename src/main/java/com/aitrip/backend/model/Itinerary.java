@@ -1,14 +1,26 @@
 package com.aitrip.backend.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 
+// 🟢 ADDED: This tells Spring "Save this to MongoDB"
+@Document(collection = "itineraries")
 public class Itinerary {
+
+    // 🟢 ADDED: MongoDB needs a unique ID (String type)
+    @Id
+    private String id;
+
     private String destination;
     private List<Hotel> hotels;
     private List<Day> days;
 
     // Getters and Setters
+    public String getId() { return id; } // New Getter for ID
+    public void setId(String id) { this.id = id; } // New Setter for ID
+
     public String getDestination() { return destination; }
     public void setDestination(String destination) { this.destination = destination; }
     public List<Hotel> getHotels() { return hotels; }
@@ -16,7 +28,7 @@ public class Itinerary {
     public List<Day> getDays() { return days; }
     public void setDays(List<Day> days) { this.days = days; }
 
-    // --- Inner Classes ---
+    // --- Inner Classes (EXACTLY AS YOU WROTE THEM) ---
 
     public static class Hotel {
         private String name;
@@ -25,7 +37,6 @@ public class Itinerary {
         private String address;
         private String type;
 
-        // Getters and Setters
         public String getName() { return name; }
         public void setName(String name) { this.name = name; }
         public String getPrice() { return price; }
@@ -42,7 +53,6 @@ public class Itinerary {
         private int day;
         private List<Activity> activities;
 
-        // Getters and Setters
         public int getDay() { return day; }
         public void setDay(int day) { this.day = day; }
         public List<Activity> getActivities() { return activities; }
@@ -53,13 +63,12 @@ public class Itinerary {
         private String time;
         private String name;
         private String description;
-        private double cost; // Ensure this is double or int
+        private double cost;
         private String type;
 
-        @JsonProperty("fee_reason") // 🟢 MAPS JSON 'fee_reason' to Java 'feeReason'
+        @JsonProperty("fee_reason")
         private String feeReason;
 
-        // Getters and Setters
         public String getTime() { return time; }
         public void setTime(String time) { this.time = time; }
         public String getName() { return name; }
